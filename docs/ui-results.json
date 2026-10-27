@@ -1,0 +1,22 @@
+{
+  "passed": 15,
+  "checks": [
+    "Workbench loads with no cloud services",
+    "Provider save, encrypted-key indicator, active switch",
+    "Native folder bridge and project persistence",
+    "Reasoning slider + purple Ultra",
+    "UI-only acceleration visibly disclosed",
+    "Model dropdown seven screenshot presets",
+    "Project context menu and pin",
+    "Percentage from actual local HTTP quota fixture",
+    "MCP add with explicit trust and disabled default",
+    "SKILL.md save and management UI",
+    "Theme changes and persisted local preferences",
+    "Bidirectional approval and streaming conversation via fixture subprocess",
+    "Rendered code copy control present; system clipboard restricted",
+    "Rename, archive, and history restoration UI",
+    "Navigation retains provider settings"
+  ],
+  "pageErrors": [],
+  "note": "Fixture RPC. Browser assets loaded in memory, /api HTTP requests via Python bridge; managed browser blocks URL navigation. SSE/normal navigation not browser-tested."
+}

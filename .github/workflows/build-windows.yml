@@ -1,0 +1,35 @@
+name: Build Windows desktop
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install desktop build dependencies
+        run: npm install --no-audit --no-fund
+      - name: Install pinned Codex runtime
+        run: npm run install:engine
+      - run: npm run check
+      - run: npm test
+      - name: Build installer (unsigned)
+        run: npm run build:win
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+      - name: SHA256 installer
+        shell: pwsh
+        run: Get-ChildItem release/*.exe | Get-FileHash -Algorithm SHA256 | Format-Table -AutoSize | Out-File release/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AstroGate-Codex-Windows-x64
+          path: |
+            release/*.exe
+            release/SHA256SUMS.txt
+            package-lock.json
+          if-no-files-found: error

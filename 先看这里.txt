@@ -1,0 +1,21 @@
+AstroGate Codex 0.1.0 — 源码交付版
+
+Windows 使用：
+1. 完整解压到可写文件夹。
+2. 首次双击 Setup-Windows.cmd，输入 Y 确认下载 Node / Codex。
+3. 双击 Start.cmd，打开图形工作台。
+4. 设置 → 模型供应商 → 添加中转地址、Key 和真实模型 ID → 使用。
+5. 添加本机项目，然后发送开发任务。
+
+已有 Node.js 22+ 和 Codex 时，可直接尝试 Start.cmd。
+需要 EXE：联网 Windows 电脑运行 Build-Windows.cmd，成功后在 release 文件夹取得安装包。
+
+此压缩包不是预编译 EXE，没有内置 API Key。
+真实中转调用、Windows DPAPI、Windows 原生沙箱、Electron 安装包尚未在本次环境验收。
+已提供协议集成测试和图形界面测试，测试回复只在 tests 目录的显式夹具中存在。
+
+Ultra 为紫色。加速开关仅为界面预留，不承诺真实提速。
+额度只有接口提供了可信字段才显示百分比，没有数据就显示“未提供”。
+
+完整说明：README.md
+测试报告：docs/TEST_REPORT.md

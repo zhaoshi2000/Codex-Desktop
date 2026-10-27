@@ -1,0 +1,152 @@
+
+> astrogate-codex-desktop@0.1.0 test
+> node --test tests/*.test.mjs
+
+TAP version 13
+# Subtest: vault encrypts at rest, survives reload and detects tampering
+ok 1 - vault encrypts at rest, survives reload and detects tampering
+  ---
+  duration_ms: 16.5712
+  type: 'test'
+  ...
+# Subtest: Markdown escapes untrusted HTML and only renders http(s) links
+ok 2 - Markdown escapes untrusted HTML and only renders http(s) links
+  ---
+  duration_ms: 5.024597
+  type: 'test'
+  ...
+# Subtest: RPC handshake, split UTF-8 notifications, reverse response and timeout
+ok 3 - RPC handshake, split UTF-8 notifications, reverse response and timeout
+  ---
+  duration_ms: 260.780482
+  type: 'test'
+  ...
+# Subtest: RPC crash rejects pending calls and marks process disconnected
+ok 4 - RPC crash rejects pending calls and marks process disconnected
+  ---
+  duration_ms: 144.566021
+  type: 'test'
+  ...
+# Subtest: project, provider and skill persistence; secrets not in state or runtime config
+ok 5 - project, provider and skill persistence; secrets not in state or runtime config
+  ---
+  duration_ms: 101.560485
+  type: 'test'
+  ...
+# Subtest: settings changes are transactional when validation fails; full access never default
+ok 6 - settings changes are transactional when validation fails; full access never default
+  ---
+  duration_ms: 3.511947
+  type: 'test'
+  ...
+# Subtest: complete task, text attachment, history reload and resume through real child transport
+ok 7 - complete task, text attachment, history reload and resume through real child transport
+  ---
+  duration_ms: 463.163931
+  type: 'test'
+  ...
+# Subtest: approval blocks until explicit choice, provider edits blocked mid-turn and stop works
+ok 8 - approval blocks until explicit choice, provider edits blocked mid-turn and stop works
+  ---
+  duration_ms: 185.16469
+  type: 'test'
+  ...
+# Subtest: accepted approval continues, full access requires confirmation, unsupported effort not downgraded
+ok 9 - accepted approval continues, full access requires confirmation, unsupported effort not downgraded
+  ---
+  duration_ms: 194.691911
+  type: 'test'
+  ...
+# Subtest: restart marks interrupted tasks without auto-resending
+ok 10 - restart marks interrupted tasks without auto-resending
+  ---
+  duration_ms: 11.928814
+  type: 'test'
+  ...
+# Subtest: localhost HTTP API requires capability, rejects cross-origin/Host and protects filesystem
+ok 11 - localhost HTTP API requires capability, rejects cross-origin/Host and protects filesystem
+  ---
+  duration_ms: 3147.879477
+  type: 'test'
+  ...
+# Subtest: authenticated HTTP SSE delivers notifications and disconnects cleanly
+ok 12 - authenticated HTTP SSE delivers notifications and disconnects cleanly
+  ---
+  duration_ms: 19.78696
+  type: 'test'
+  ...
+# Subtest: fresh service without configured native runtime fails clearly instead of fabricating a reply
+ok 13 - fresh service without configured native runtime fails clearly instead of fabricating a reply
+  ---
+  duration_ms: 9.919534
+  type: 'test'
+  ...
+# Subtest: provider URL requires HTTPS unless loopback or explicit insecure flag
+ok 14 - provider URL requires HTTPS unless loopback or explicit insecure flag
+  ---
+  duration_ms: 3.153375
+  type: 'test'
+  ...
+# Subtest: usage provider key cannot be forwarded to a different origin
+ok 15 - usage provider key cannot be forwarded to a different origin
+  ---
+  duration_ms: 2.224069
+  type: 'test'
+  ...
+# Subtest: percentage is unknown for missing, zero denominator and invalid inputs
+ok 16 - percentage is unknown for missing, zero denominator and invalid inputs
+  ---
+  duration_ms: 1.957799
+  type: 'test'
+  ...
+# Subtest: safe JSON fields cannot evaluate code or access inherited properties
+ok 17 - safe JSON fields cannot evaluate code or access inherited properties
+  ---
+  duration_ms: 0.292849
+  type: 'test'
+  ...
+# Subtest: CC Switch imports selected provider, not unrelated tables, and preserves key/model
+ok 18 - CC Switch imports selected provider, not unrelated tables, and preserves key/model
+  ---
+  duration_ms: 1.29277
+  type: 'test'
+  ...
+# Subtest: CC Switch export is credential-free by default and round trips
+ok 19 - CC Switch export is credential-free by default and round trips
+  ---
+  duration_ms: 1.640756
+  type: 'test'
+  ...
+# Subtest: unsupported Chat Completions import is rejected or skipped, never silently changed
+ok 20 - unsupported Chat Completions import is rejected or skipped, never silently changed
+  ---
+  duration_ms: 0.706587
+  type: 'test'
+  ...
+# Subtest: runtime TOML uses isolated provider env_key rather than embedding API Key
+ok 21 - runtime TOML uses isolated provider env_key rather than embedding API Key
+  ---
+  duration_ms: 2.16341
+  type: 'test'
+  ...
+# Subtest: redaction removes known secrets and bearer strings
+ok 22 - redaction removes known secrets and bearer strings
+  ---
+  duration_ms: 2.041796
+  type: 'test'
+  ...
+# Subtest: actual local HTTP requests verify headers, model catalog and quota mapping
+ok 23 - actual local HTTP requests verify headers, model catalog and quota mapping
+  ---
+  duration_ms: 96.077456
+  type: 'test'
+  ...
+1..23
+# tests 23
+# suites 0
+# pass 23
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 6286.611365

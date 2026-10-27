@@ -1,0 +1,35 @@
+{
+  "name": "astrogate-codex-desktop",
+  "version": "0.1.0",
+  "description": "AstroGate Codex graphical workbench with CC Switch compatible provider management",
+  "private": true,
+  "type": "module",
+  "main": "electron/main.cjs",
+  "license": "MIT",
+  "author": "AstroGate",
+  "engines": { "node": ">=22.0.0" },
+  "scripts": {
+    "start": "node server/index.mjs --open",
+    "serve": "node server/index.mjs",
+    "desktop": "electron .",
+    "test": "node --test tests/*.test.mjs",
+    "check": "node scripts/check.mjs",
+    "install:engine": "npm install --prefix .runtime/codex --no-audit --no-fund @openai/codex@0.162.1",
+    "build:win": "electron-builder --win nsis --x64",
+    "build:portable": "electron-builder --win portable --x64",
+    "build:dir": "electron-builder --dir"
+  },
+  "devDependencies": { "electron": "44.7.2", "electron-builder": "26.0.12" },
+  "build": {
+    "appId": "sbs.astrogate.codex.desktop",
+    "productName": "AstroGate Codex",
+    "directories": { "output": "release" },
+    "files": ["electron/**/*", "server/**/*", "web/**/*", "licenses/**/*", "package.json", "README.md"],
+    "extraResources": [{"from": ".runtime/codex/node_modules", "to": "codex/node_modules", "filter": ["**/*"]}],
+    "asar": true,
+    "win": { "target": ["nsis"], "artifactName": "AstroGate-Codex-${version}-${arch}-Setup.${ext}", "signAndEditExecutable": false },
+    "nsis": { "oneClick": false, "allowToChangeInstallationDirectory": true, "perMachine": false, "createDesktopShortcut": true },
+    "mac": { "category": "public.app-category.developer-tools" },
+    "linux": { "category": "Development", "target": ["AppImage"] }
+  }
+}
