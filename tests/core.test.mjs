@@ -114,6 +114,16 @@ finally {
     await s.close();
     cleanup(s);
 } });
+test('official provider requires an isolated official login before creating a turn', async () => { const s = makeService(); try {
+    s.runtimeFactory = null;
+    assert.equal(s.snapshot().providers.find(p => p.id === 'official').officialLoggedIn, false);
+    await assert.rejects(() => s.send({ text: '需要登录' }), e => e.code === 'OFFICIAL_LOGIN_REQUIRED' && /官方尚未登录/.test(e.message));
+    assert.equal(s.data.sessions.length, 0);
+}
+finally {
+    await s.close();
+    cleanup(s);
+} });
 test('restart marks interrupted tasks without auto-resending', () => { const dir = temp(); try {
     const first = new Store(dir), s = first.createSession({ providerId: 'official', cwd: first.data.settings.workspace, model: 'test', effort: 'high', text: 'pending' });
     s.status = 'running';
@@ -160,6 +170,8 @@ finally {
 } });
 test('fresh service without configured native runtime fails clearly instead of fabricating a reply', async () => { const s = makeService(); try {
     s.runtimeFactory = null;
+    fs.mkdirSync(s.home('official'), { recursive: true });
+    fs.writeFileSync(path.join(s.home('official'), 'auth.json'), JSON.stringify({ tokens: { access_token: 'fixture-token' } }));
     await s.saveSettings({ codexPath: path.join(s.dataDir, 'definitely-missing-codex') });
     await assert.rejects(() => s.send({ text: 'Check project' }), /路径必须/);
     assert.equal(s.data.sessions.length, 1);

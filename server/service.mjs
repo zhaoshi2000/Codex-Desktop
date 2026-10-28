@@ -37,8 +37,27 @@ export class Service extends EventEmitter {
     changed() { this.store.save(); this.event('state'); }
     provider(providerId = this.data.activeProviderId) { const p = this.data.providers.find(p => p.id === providerId); assert(p, '供应商不存在', 404); return p; }
     home(providerId) { return path.join(this.dataDir, 'codex-homes', safeId(providerId)); }
+    requireOfficialLogin(provider) {
+        // Fixture runtimes do not persist a real Codex auth file. Production
+        // always uses the isolated file-backed CODEX_HOME configured below.
+        if (provider.kind !== 'official' || this.runtimeFactory)
+            return;
+        if (!this.officialLoggedIn(provider))
+            throw new AppError('OpenAI 官方尚未登录。请前往「设置 → 模型供应商」，在 OpenAI 官方的更多菜单选择“官方登录”，完成授权后再发送。', 401, 'OFFICIAL_LOGIN_REQUIRED');
+    }
+    officialLoggedIn(provider) {
+        if (provider.kind !== 'official')
+            return null;
+        try {
+            const auth = JSON.parse(fs.readFileSync(path.join(this.home(provider.id), 'auth.json'), 'utf8'));
+            return !!auth?.tokens && typeof auth.tokens === 'object' && Object.keys(auth.tokens).length > 0;
+        }
+        catch {
+            return false;
+        }
+    }
     snapshot() {
-        return { ...structuredClone(this.data), providers: this.data.providers.map(p => ({ ...p, hasKey: this.vault.has('provider:' + p.id), hasUsageKey: this.vault.has('usage:' + p.id) })),
+        return { ...structuredClone(this.data), providers: this.data.providers.map(p => ({ ...p, hasKey: this.vault.has('provider:' + p.id), hasUsageKey: this.vault.has('usage:' + p.id), officialLoggedIn: this.officialLoggedIn(p) })),
             engine: { connected: !!this.engine?.ready, providerId: this.engineProvider, connecting: !!this.connecting }, running: this.running ? { ...this.running } : null,
             approvals: [...this.approvals.values()].map(x => ({ id: x.id, method: x.method, params: x.params })), usage: Object.fromEntries(this.usage),
             runtime: { platform: process.platform, arch: process.arch, node: process.versions.node, dataDir: this.dataDir, expectedCodex: '0.162.1', native: !!this.native.pickDirectory }, logs: this.logs };
@@ -278,6 +297,7 @@ export class Service extends EventEmitter {
         let s = input.sessionId ? this.store.session(input.sessionId) : null;
         assert(!s?.archived, '请先恢复该归档会话');
         const provider = this.provider(s?.providerId || input.providerId || this.data.activeProviderId);
+        this.requireOfficialLogin(provider);
         const project = s?.projectId ? this.data.projects.find(p => p.id === s.projectId) : input.projectId ? this.data.projects.find(p => p.id === input.projectId) : null;
         assert(!input.projectId || project || s, '项目不存在');
         const cwd = realDirectory(s?.cwd || project?.path || this.data.settings.workspace), model = text(input.model || s?.model || provider.defaultModel, '模型', 200, true), effort = input.effort || s?.effort || provider.effort;
