@@ -412,3 +412,59 @@ button:hover{background:var(--hover)}
 .history-row small{display:block; font-size:11px; color:var(--muted); margin-top:7px}
 .modal .notice{margin-top:0}
 .modal .form-field>label{display:block}
+
+/* Codex-inspired desktop layout: quiet chrome, a slim rail, and a focused workspace. */
+:root{--bg:#f6f7f8;--panel:#ffffff;--sidebar:#ffffff;--text:#1d1e20;--muted:#8b8f97;--line:#e7e8ea;--hover:#f1f2f3;--accent:#2994ff;--accent-soft:#edf6ff;--orange:#f26b21;--side-width:440px;font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.titlebar{height:44px;background:#f4f5f6;padding:0 12px;gap:4px;color:#91959c}
+.titlebar>.icon-btn{width:28px;height:28px;border-radius:7px}
+.titlebar>.icon-btn:nth-child(2){transform:rotate(0deg);opacity:.66}
+.title-divider{width:1px;height:16px;background:#dfe1e3;margin:0 6px 0 1px}
+.top-menu{font-size:13px;padding:6px 10px;color:#7c828a}
+.window-title{font-size:11px;color:#7e8389;opacity:.72}
+.window-buttons{height:44px}.window-buttons button{width:46px}
+.app-body{height:calc(100vh - 44px);background:var(--bg)}
+.rail{width:52px;background:#f6f7f8;border-right:1px solid var(--line);padding:8px 9px 10px;gap:10px}
+.rail .icon-btn{width:34px;height:34px;border-radius:10px;color:#777d85}
+.rail .selected{background:#e9eaec;color:#1d1e20}
+.rail hr{display:none}.rail .spacer{min-height:14px}
+.avatar{width:30px;height:30px;border:0;box-shadow:0 1px 3px #0002}
+.shell{border:0;border-radius:16px 16px 0 0;background:var(--panel);overflow:hidden}
+.sidebar{background:var(--panel);padding:14px 12px 0;border-right:1px solid var(--line)}
+.sidebar-top{padding:0 8px 12px;min-height:34px}.sidebar-brand{font-size:18px;font-weight:650;letter-spacing:-.25px}.sidebar-sub{display:none}
+.sidebar-top .row{gap:4px}.sidebar-top .icon-btn{width:29px;height:29px}
+.nav-item{min-height:34px;padding:7px 11px;border-radius:8px;font-size:13px;gap:9px}.nav-item.active{background:#f0f1f2}.nav-item .keyhint{font-size:10px}
+.identity{padding:7px 11px 15px;font-size:12px}.mini-mark{width:18px;height:18px;border-radius:6px}
+.nav-section{margin:10px 0 19px}.nav-section-title{padding:4px 11px 8px;font-size:12px;color:#838890}.nav-section-title .icon-btn{width:24px;height:24px}
+.project-row{border-radius:8px;margin:1px 0}.project-row .project-main{padding:8px 10px;font-size:13px}.session-nav{padding:5px 7px 5px 33px}.session-nav.top{padding-left:11px}.session-nav>button:first-child{font-size:13px;line-height:1.55}.empty-nav{font-size:11px;padding:4px 11px}
+.sidebar-footer{margin:6px -12px 0;padding:12px 17px 13px;border-top:1px solid var(--line);font-size:11px}
+.workspace{background:var(--panel)}.workspace-top{height:56px;padding:0 26px;border-bottom:1px solid var(--line)}
+.workspace-title{font-size:14px;font-weight:600;color:#292b2f;gap:9px}.workspace-title .badge{font-weight:400}.workspace-actions{display:flex;align-items:center;gap:5px}.workspace-actions>.icon-btn{width:30px;height:30px}
+.connect-btn{border-radius:8px;padding:6px 9px;background:#fff;font-size:12px;color:#737981}.connect-btn:hover{background:#f7f7f8}
+.welcome{align-items:flex-start;justify-content:flex-start;padding:76px 64px 35px;min-height:300px}.welcome .welcome-symbol{display:none}.welcome h1{font-size:25px;letter-spacing:-.55px;font-weight:600;margin:0 0 10px}.welcome-note{text-align:left;margin:0;max-width:480px;font-size:13px;line-height:1.7}.welcome-start{justify-content:flex-start;margin-top:18px}
+.transcript{width:calc(100% - 112px);max-width:830px;margin:0 auto 0 62px;padding:42px 0 35px}.message{font-size:14px;line-height:1.8;margin-bottom:25px}.message-label{font-size:12px;margin-bottom:8px}.user-bubble{background:#f1f2f3;border-radius:20px 20px 5px 20px;padding:11px 17px}.tool-card,.codeblock{border-color:#e8e9eb;box-shadow:none}
+.composer-region{max-width:900px;padding:0 0 13px;margin:0 auto;width:calc(100% - 76px)}
+.composer{border-radius:22px;border-color:#e4e6e8;box-shadow:none;padding:0 14px 10px}.composer:focus-within{box-shadow:0 0 0 3px #2994ff14;border-color:#b9dfff}
+.context-bar{height:38px;background:transparent;border:0;border-bottom:1px solid var(--line);border-radius:22px 22px 0 0;padding:0;margin:0 0 7px;font-size:12px}.context-bar button{color:#757b84;max-width:48%;gap:6px}.context-bar .device{color:#2e3135;padding-left:1px;gap:6px}
+.composer textarea{min-height:59px;padding:4px 1px 8px;font-size:14px;line-height:1.65}.composer-footer{min-height:30px;gap:6px}.permission{font-size:12px;padding:5px 3px}.model-pill{height:30px;background:#f6f7f8;border-radius:18px;max-width:58%}.model-pill button{height:30px}.send-btn{width:34px;height:34px;background:#1e1f21}.composer-hint{font-size:9px;margin:8px 0 0;color:#969ba2}
+.page{padding:70px 64px 58px}.page-inner{max-width:760px;margin:0 0 0 0}.page-head{margin-bottom:46px}.page h1{font-size:29px;line-height:1.25;letter-spacing:-.75px}.page-subtitle{font-size:13px}.page h2{font-size:15px;margin:30px 0 15px}.setting-group{border-color:#e7e8ea;border-radius:16px;padding:1px 17px;margin-bottom:26px}.setting-row{min-height:64px;padding:13px 0;gap:22px}.setting-row strong,.setting-row h3{font-size:13px;font-weight:600;margin-bottom:4px}.setting-row p{font-size:12px;line-height:1.6}.setting-row .control{max-width:49%}.setting-row select{border:0;background:transparent;padding:7px 2px;color:#34373c}.settings-nav{padding-top:2px}.settings-nav .nav-section-title{padding:14px 11px 7px}.side-search{height:36px;margin:0 0 10px;padding:0 12px;border-radius:18px;background:#f1f1f2;color:#888e96}.settings-sidebar .sidebar-footer{display:none}
+.appearance-settings .setting-row{min-height:62px}.theme-mode-options{display:flex;align-items:center;gap:4px;background:#f4f5f6;border-radius:10px;padding:3px}.theme-mode{display:flex;align-items:center;gap:5px;font-size:11px;padding:6px 7px;border-radius:7px;color:#777d84}.theme-mode.active{color:#1f2226;background:#fff;box-shadow:0 1px 3px #00000012}.select-like{display:flex;align-items:center;gap:6px;font-size:12px;padding:6px 8px;border-radius:8px;background:#f7f7f8}.color-chip{width:18px;height:18px;border-radius:50%;display:inline-block;border:1px solid #dfe1e4}.color-chip.accent{background:#2994ff}.color-chip.background{background:#fff}
+:root[data-theme=dark] .rail,:root[data-theme=dark] .titlebar{background:#17191b}:root[data-theme=dark] .rail .selected{background:#2a2e33;color:#f2f4f6}:root[data-theme=dark] .theme-mode-options{background:#25292d}:root[data-theme=dark] .theme-mode.active{background:#34393e;color:#fff}:root[data-theme=dark] .select-like,:root[data-theme=dark] .model-pill{background:#24282c}
+@media(max-width:1180px){:root{--side-width:310px}.transcript{margin-left:38px;width:calc(100% - 72px)}.composer-region{width:calc(100% - 44px)}.page{padding:54px 38px}.page-inner{max-width:760px}}
+@media(max-width:960px){:root{--side-width:250px}.sidebar{padding-left:8px;padding-right:8px}.welcome{padding-left:38px}.transcript{margin-left:28px;width:calc(100% - 52px)}.workspace-top{padding:0 18px}.page{padding:40px 28px}.theme-mode span{display:none}}
+@media(max-width:720px){.rail{width:48px}.shell{border-radius:12px 12px 0 0}.welcome{padding-left:28px}.composer-region{width:calc(100% - 24px)}.transcript{margin-left:20px;width:calc(100% - 40px)}.page{padding:28px 20px}}
+
+.rail .rail-download{background:#2994ff;color:#fff;box-shadow:0 2px 6px #2994ff32}.rail .rail-download:hover{background:#1688f4;color:#fff}
+
+/* Desktop reference geometry: the content column and composer share 64 px gutters. */
+@media(min-width:1181px){
+  .transcript{width:calc(100% - 128px);max-width:none;margin-left:64px}
+  .composer-region{width:calc(100% - 128px);max-width:none;padding-bottom:20px}
+}
+@media(max-width:1180px) and (min-width:961px){.composer-region{width:calc(100% - 76px)}}
+.context-bar{height:31px;margin:0 0 4px}
+.composer{padding:0 14px 8px}
+.composer textarea{min-height:36px;padding:2px 1px 4px;line-height:1.55}
+.composer-footer{min-height:28px}
+.composer-hint{display:none}
+
+.context-bar{height:28px}.composer{padding-bottom:7px}.composer textarea{min-height:28px}.composer-footer{min-height:24px}.send-btn{width:30px;height:30px}
