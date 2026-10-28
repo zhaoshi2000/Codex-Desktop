@@ -49,9 +49,11 @@ finally {
     await s.close();
     cleanup(s);
 } });
-test('settings changes are transactional when validation fails; full access never default', async () => { const s = makeService(); try {
-    await assert.rejects(() => s.saveSettings({ theme: 'dark', defaultPermission: 'danger-full-access' }));
-    assert.equal(s.data.settings.theme, 'light');
+test('settings save the default full-access mode and remain transactional on invalid input', async () => { const s = makeService(); try {
+    assert.equal(s.data.settings.defaultPermission, 'danger-full-access');
+    await s.saveSettings({ theme: 'dark', defaultPermission: 'workspace-write' });
+    await assert.rejects(() => s.saveSettings({ theme: 'light', defaultPermission: 'invalid' }));
+    assert.equal(s.data.settings.theme, 'dark');
     assert.equal(s.data.settings.defaultPermission, 'workspace-write');
 }
 finally {
@@ -83,6 +85,7 @@ finally {
     cleanup(s);
 } });
 test('approval blocks until explicit choice, provider edits blocked mid-turn and stop works', async () => { const s = makeService(); try {
+    await s.saveSettings({ defaultPermission: 'workspace-write' });
     const r = await s.send({ text: '[approve]', model: 'fixture-model', effort: 'high' });
     await waitUntil(() => s.approvals.size === 1);
     assert(s.running);
@@ -100,14 +103,12 @@ finally {
     await s.close();
     cleanup(s);
 } });
-test('accepted approval continues, full access requires confirmation, unsupported effort not downgraded', async () => { const s = makeService(); try {
-    await assert.rejects(() => s.send({ text: 'x', permission: 'danger-full-access' }), /确认/);
+test('full access auto-approves command requests and unsupported effort is not downgraded', async () => { const s = makeService(); try {
     await s.engineModels('official');
     await assert.rejects(() => s.send({ text: 'x', model: 'fixture-model', effort: 'low' }), /未自动降级/);
-    const r = await s.send({ text: '[approve]', model: 'fixture-model', effort: 'ultra', permission: 'danger-full-access', fullAccessConfirmed: true });
-    await waitUntil(() => s.approvals.size);
-    s.respondApproval({ id: [...s.approvals.keys()][0], decision: 'accept' });
+    const r = await s.send({ text: '[approve]', model: 'fixture-model', effort: 'ultra', permission: 'danger-full-access' });
     await waitUntil(() => !s.running);
+    assert.equal(s.approvals.size, 0);
     assert.equal(s.store.session(r.sessionId).status, 'completed');
 }
 finally {

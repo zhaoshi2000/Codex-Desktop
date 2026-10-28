@@ -254,7 +254,7 @@ export class Service extends EventEmitter {
         if (input.displayName !== undefined)
             s.displayName = text(input.displayName, '显示名称', 40, true);
         if (input.defaultPermission !== undefined) {
-            assert(['read-only', 'workspace-write'].includes(input.defaultPermission), '完整访问权限只能在任务开始前显式授权');
+            assert(['read-only', 'workspace-write', 'danger-full-access'].includes(input.defaultPermission), '无效的默认权限');
             s.defaultPermission = input.defaultPermission;
         }
         if (input.model !== undefined)
@@ -307,8 +307,6 @@ export class Service extends EventEmitter {
             assert(advertised.efforts.includes(effort), `模型目录未声明支持 ${effort}；请选择支持的强度：${advertised.efforts.join(', ')}。未自动降级。`);
         const permission = input.permission || this.data.settings.defaultPermission;
         assert(['read-only', 'workspace-write', 'danger-full-access'].includes(permission), '无效的权限模式');
-        if (permission === 'danger-full-access')
-            assert(input.fullAccessConfirmed === true, '完整访问权限需在本次任务前确认');
         if (!s)
             s = this.store.createSession({ providerId: provider.id, projectId: project?.id, cwd, model, effort, text: message });
         s.model = model;
@@ -317,7 +315,7 @@ export class Service extends EventEmitter {
         s.updatedAt = Date.now();
         const userId = id('user-');
         s.items.push({ id: userId, type: 'userMessage', text: message, attachments, createdAt: Date.now() });
-        this.running = { sessionId: s.id, providerId: provider.id, turnId: null, startedAt: Date.now(), stopping: false };
+        this.running = { sessionId: s.id, providerId: provider.id, permission, turnId: null, startedAt: Date.now(), stopping: false };
         this.store.saveSession(s, true);
         this.event('state');
         try {
@@ -448,6 +446,18 @@ export class Service extends EventEmitter {
         if (this.approvals.size >= 100) {
             this.engine?.reject(message.id, '待审批请求过多');
             return;
+        }
+        if (this.running?.providerId === providerId && this.running.permission === 'danger-full-access') {
+            if (message.method === 'item/commandExecution/requestApproval' || message.method === 'item/fileChange/requestApproval') {
+                this.engine?.answer(message.id, { decision: 'accept' });
+                this.log(`已按全部允许设置批准：${message.method}`);
+                return;
+            }
+            if (message.method === 'item/permissions/requestApproval') {
+                this.engine?.answer(message.id, { permissions: message.params?.permissions || {}, scope: 'turn' });
+                this.log(`已按全部允许设置批准：${message.method}`);
+                return;
+            }
         }
         const row = { id: String(message.id), rpcId: message.id, providerId, method: message.method, params: JSON.parse(this.sanitize(message.params || {})) };
         this.approvals.set(row.id, row);

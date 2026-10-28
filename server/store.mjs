@@ -9,7 +9,7 @@ export class Store {
         this.file = path.join(dir, 'state.json');
         this.data = readJson(this.file, {
             version: 1, activeProviderId: 'official',
-            settings: { theme: 'light', codexPath: '', workspace: path.join(dir, 'workspace'), defaultPermission: 'workspace-write', effort: 'high', model: 'gpt-6-sol', acceleration: false, displayName: '开发者' },
+            settings: { theme: 'light', codexPath: '', workspace: path.join(dir, 'workspace'), defaultPermission: 'danger-full-access', effort: 'high', model: 'gpt-6-sol', acceleration: false, displayName: '开发者' },
             providers: [{ id: 'official', name: 'OpenAI 官方', kind: 'official', baseUrl: '', defaultModel: 'gpt-6-sol', effort: 'high', models: structuredClone(SCREENSHOT_MODELS), notes: '在本应用隔离环境中登录，或显式导入本机 Codex 登录态', usage: null, createdAt: Date.now() }],
             projects: [], sessions: [], mcp: [], skills: []
         });
