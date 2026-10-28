@@ -468,3 +468,11 @@ button:hover{background:var(--hover)}
 .composer-hint{display:none}
 
 .context-bar{height:28px}.composer{padding-bottom:7px}.composer textarea{min-height:28px}.composer-footer{min-height:24px}.send-btn{width:30px;height:30px}
+
+/* Final reference-density pass. */
+.workspace-top{padding-left:20px;padding-right:20px}
+.composer-region{padding-bottom:24px}
+.context-bar{height:24px}
+.composer{padding-bottom:6px}
+.composer textarea{min-height:22px}
+.page-head + .section-title{margin-top:1px;margin-bottom:44px}
